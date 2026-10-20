@@ -1,0 +1,38 @@
+{
+  "name": "dsh-link-parse",
+  "version": "0.1.0",
+  "description": "把聊天里出现的分享链接（B站/抖音/小红书/微博/知乎/GitHub/通用网页）解析成标题、作者、正文、封面、视频直链，并支持把视频/图片下载到 QQ 媒体目录后用 qq_send_video/qq_send_image 发出去。Link-to-content resolver for DeepSeek Harness.",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "link",
+    "parse",
+    "bilibili",
+    "douyin",
+    "opengraph"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "author": "xfgil",
+  "engines": {
+    "node": ">=22"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
