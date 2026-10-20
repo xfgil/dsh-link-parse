@@ -1,0 +1,3 @@
+- insert:
+    - id: link-parse
+      name: dsh-link-parse
