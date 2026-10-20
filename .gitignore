@@ -1,0 +1,8 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# 测试期的临时产物
+test/xhh-cookie.txt
+test/*.tmp
