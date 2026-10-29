@@ -54,7 +54,7 @@ pnpm add link:D:/path/to/dsh-link-parse
 - id: link-parse
   name: dsh-link-parse
   config:
-    mediaDir: 'D:\Documents\yunyue\.dsh-media'
+    mediaDir: '/path/to/your/media-dir'   # 与 dsh-onebot-qq 的 mediaDir 保持一致
     bilibiliCookie: ''
     xiaoheiheCookie: ''
     githubToken: ''
@@ -100,6 +100,29 @@ pnpm add link:D:/path/to/dsh-link-parse
 `link_parse` 能访问任意 URL，包括 `http://127.0.0.1:6099/webui?token=…` 这种本机面板。所以它**不该被无条件交给不受信任的一方**。
 
 如果你用 `dsh-onebot-companion`，那里的 `isolation` 模块会把群聊里非管理员发言的那一轮划成受限回合，`link_parse` / `link_download` / `web_fetch` 共用同一条 `checkLinkAccess` 边界：只认本轮入站文本里出现过的公网地址，本机/内网地址一律拒。
+
+## 支持的 DSH 版本
+
+| 项 | 范围 | 依据 |
+| --- | --- | --- |
+| DSH | **>= 0.2.0** | 只用到 `inject`、`ctx.inject(['tools'])`、`tools.register` 三个基础接口，0.2 起未变 |
+| Node | **>= 22** | `package.json` 的 `engines` |
+| 宿主包 | **不依赖** | 只用 Node 内置模块（`fs` / `http` / `https` / `stream` / `crypto`） |
+
+实测环境：DSH `0.2.1-rc.2`（Windows x64）。
+
+**不依赖任何 `@deepseek-ai/*` 包**，所以不会因为宿主包升级而挂。但它调用的那三个接口如果哪天改名，就得跟着改。
+
+## 免责声明
+
+**这个工具会抓取第三方平台的内容。请只用在你本来就有权查看的内容上。**
+
+1. **遵守平台条款。** 多数平台的服务条款限制自动化访问。自己日常用通常没人管；**拿它做批量抓取、镜像站点、或对外提供服务，那是另一回事**，风险和本项目无关，由使用者承担。
+2. **内容不是你的。** 解析出来的标题、作者、封面、视频直链，版权属于原作者和平台。下载下来自己看是一回事，再分发是另一回事。
+3. **不要用它绕开付费墙或登录限制。** `live-cookie.js` 是给「你自己已经登录的账号」用的，不是用来伪造身份。
+4. **它不该被无条件交给不受信任的一方。** `link_parse` 能访问任意 URL，包括本机面板地址。在群里跑务必配合 `dsh-onebot-companion` 的 `isolation` 模块（见上节）。
+
+软件按 MIT 协议「按现状」提供，不对使用后果作任何担保。
 
 ## 开发
 
